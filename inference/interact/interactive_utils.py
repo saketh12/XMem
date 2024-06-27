@@ -39,8 +39,18 @@ except:
 color_map_np = np.frombuffer(davis_palette, dtype=np.uint8).reshape(-1, 3).copy()
 # scales for better visualization
 color_map_np = (color_map_np.astype(np.float32)*1.5).clip(0, 255).astype(np.uint8)
-color_map = color_map_np.tolist()
+# color_map = color_map_np.tolist()
 color_map_torch = torch.from_numpy(color_map_np).to(device) / 255
+
+# color_map_np = (color_map_np.astype(np.float32) * 1.5).clip(0, 255).astype(np.uint8)
+# assert isinstance(color_map_np, np.ndarray), f"Expected color_map_np to be a NumPy array, got {type(color_map_np)}"
+
+# try:
+#     color_map_torch = torch.from_numpy(color_map_np).to(device) / 255
+# except TypeError as e:
+#     print(f"TypeError encountered: {e}")
+#     print(f"color_map_np type: {type(color_map_np)}")
+#     print(f"NumPy version: {np.__version__}")
 
 grayscale_weights = np.array([[0.3,0.59,0.11]]).astype(np.float32)
 grayscale_weights_torch = torch.from_numpy(grayscale_weights).to(device).unsqueeze(0)
